@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!--
+Versió Pre-alfa o Prototip HTML/JavaScript Joc del Penjat: prototip.html
+-->
+<html>
+    <head>
+        <title>Prototip Joc del Penjat</title>
+        <link rel="icon" type="image/png" href="img/favicon.png">        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/alasql.js" type="text/javascript"></script>
+        <script src="js/sql.js" type="text/javascript"></script>
+    <script>
+       // Diferents idiomes per la GUI
+    const Idiomes_dtf = [
+        {
+            "IdIdioma": "ca",
+            "Titol": "Versió amb Estructures de Dades Joc del Penjat",
+            "Versio": "Versió β Joc del Penjat",
+            "Input": "Escriu una lletra minúscula",
+            "Pregunta": "Anam a la quinta forca?",
+            "Comprovar": "Comprovar",
+            "Paraula": "Paraula:",
+            "Sopes": "Demanes sopes?",
+            "Pista": "Pista",
+            "Vides": "Vides:",
+            "Moix": "Un moix en té set?",
+            "Lletres": "Lletres:",
+            "Ets": "Ets de lletres?",
+            "URLpistes": "URLpistes:",
+            "Dita": "Dita",
+            "Dita1": "A la quinta forca, ",
+            "Dita2": "A ca un penjat, no hi anomenis cordes, ",
+            "Dita3": "Setze jutges d'un jutjat mengen fetge d'un penjat, …",
+            "Credits": "Crèdits:",
+            "YouTube": "Joc Penjat on Scratch",
+            "Wikis": "Penjat",
+            "Idioma": "en Català",
+            "Diccionari": "Diccionari",
+            "Teclat": "Mostra o Amaga",
+            "Incorrecte": "Caràcter incorrecte!",
+            "Repetida": "Lletra repetida!",
+            "Encertat": "Has encertat!",
+            "Guanyat": "i has guanyat!",
+            "Fallat": "Has fallat!",
+            "Perdut": "i has perdut!",
+            "Descansi": "En pau descansi – RIP!",
+            "Puntuacio": "Puntuació:"
+        },
+        {
+            "IdIdioma": "es",
+            "Titol": "Versión con Estructuras de Datos Juego del Ahorcado",
+            "Versio": "Versión β Juego del Ahorcado",
+            "Input": "Escribe una letra minúscula",
+            "Pregunta": "Vamos al quinto pino?",
+            "Comprovar": "Comprobar",
+            "Paraula": "Palabra:",
+            "Sopes": "Te rindes?",
+            "Pista": "Pista",
+            "Vides": "Vidas:",
+            "Moix": "Un gato tiene siete?",
+            "Lletres": "Letras:",
+            "Ets": "Eres de letras?",
+            "URLpistes": "URLpistas:",
+            "Dita": "Dicho",
+            "Dita1": "Al quinto pino, ",
+            "Dita2": "En casa de un ahorcado, no hables de cuerdas,",
+            "Dita3": "Dieciséis jueces de un juzgado comen hígado de un ahorcado, …",
+            "Credits": "Crèditos:",
+            "YouTube": "Juego Ahorcado on Scratch",
+            "Wikis": "Ahorcado",
+            "Idioma": "en Español",
+            "Diccionari": "Diccionario",
+            "Teclat": "Muestra o Esconde",
+            "Incorrecte": "Carácter incorrecto!",
+            "Repetida": "Letra repetida!",
+            "Encertat": "Has acertado!",
+            "Guanyat": "y has ganado!",
+            "Fallat": "Has fallado!",
+            "Perdut": "y has perdido!",
+            "Descansi": "En paz descanse - RIP!",
+            "Puntuacio": "Puntuación:"
+        },
+        {
+            "IdIdioma": "en",
+            "Titol": "Hangman Game Data Structures Version",
+            "Versio": "Hangman Game β Version",
+            "Input": "Write a lowercase letter",
+            "Pregunta": "Are we going to the boondocks?",
+            "Comprovar": "Check it",
+            "Paraula": "Word:",
+            "Sopes": "You give up?",
+            "Pista": "Clue",
+            "Vides": "Lives:",
+            "Moix": "A cat has seven?",
+            "Lletres": "Letters:",
+            "Ets": "Are you in liberal arts?",
+            "URLpistes": "URLclues:",
+            "Dita": "Saying",
+            "Dita1": "To the boondocks,",
+            "Dita2": "In a hanged man's home, don't talk about ropes,",
+            "Dita3": "Sixteen judges of a court eat the liver of a hangman, …",
+            "Credits": "Credits:",
+            "YouTube": "Hangman Game on Scratch",
+            "Wikis": "Hangman",
+            "Idioma": "in English",
+            "Diccionari": "Dictionary",
+            "Teclat": "Show or Hide",
+            "Incorrecte": "Wrong character!",
+            "Repetida": "Repeated letter!",
+            "Encertat": "You're right!",
+            "Guanyat": "and you have won!",
+            "Fallat": "You have failed!",
+            "Perdut": "and you have lost!",
+            "Descansi": "Rest in peace - RIP!",
+            "Puntuacio": "Score:"
+        },
+        {
+            "IdIdioma": "fr",
+            "Titol": "Version avec Base de Données Jeu du Pendu",
+            "Versio": "Version γ Jeu du Pendu",
+            "Input": "Ecrire une lettre minuscule",
+            "Pregunta": "Allons-nous aux banlieue?",
+            "Comprovar": "Vérifier",
+            "Paraula": "Mot:",
+            "Sopes": "Tu abandonnes?",
+            "Pista": "Indice",
+            "Vides": "Vies:",
+            "Moix": "Un chat en a sept?",
+            "Lletres": "Lettres:",
+            "Ets": "Êtes-vous dans les lettres?",
+            "URLpistes": "URLindices:",
+            "Dita": "Dit",
+            "Dita1": "Aux banlieue,",
+            "Dita2": "Chez un pendu, ne parle pas de cordes,",
+            "Dita3": "Seize juges d'un tribunal mangent le foie d'un pendu, …",
+            "Credits": "Crédits:",
+            "YouTube": "Jeu Pendu sur Scratch",
+            "Wikis": "Pendu",
+            "Idioma": "en Français",
+            "Diccionari": "Dictionnaire",
+            "Teclat": "Afficher ou Masquer",
+            "Incorrecte": "Caractère non valide!",
+            "Repetida": "Lettre répétée!",
+            "Encertat": "Vous as raison!",
+            "Guanyat": "et vous avez gagné!",
+            "Fallat": "Vous avez échoué!",
+            "Perdut": "et vous avez perdu!",
+            "Descansi": "Repose en paix - RIP!",
+            "Puntuacio": "Score:"
+        }
+    ]
+    var Idiomes = Idiomes_dtf; 
+    var Idioma = Idiomes.find(Idioma => Idioma.IdIdioma == "ca");
+    
+    
+    // Variables Globals.
+        var Paraula = [];
+        var Lletres =["_","_","_","_","_","_","_"];
+        var Vides = 7;
+        // Llista de paraules per al joc i les pistes asociades
+        var paraules =["cordes","fetge","força","jutges","jutjat","mengen","penjat","quinta","setze"];
+        var pistes = ["A la quinta força","A ca un penjat","no hi anomenes cordes","Setze jutges d'un jutjat mengen fetge d'un penjat"];
+        var paraulespistes = [1,2,0,2,2,2,1,0,2];
+        // Escull una paraula aleatoriament
+        var aleatori = Math.floor(Math.random()* paraules.length);
+        var paraula = paraules[aleatori];
+        var pista = pistes [paraulespistes[aleatori]];
+        //Marcam cada lletra amb un "_"
+        for (var i = 0;i<paraula.lenght; i++) {
+            paraula[i] = "_";
+        }
+        document.body.style.display = "block";
+        
+        
+        
+        // Comprovam si la lletra es troba a la Paraula.
+        function Comprovar() {
+            // Variables Locals.
+            var lletra = document.getElementById("lletra").value;
+            // Assignam el valor <input id="lletra" a lletra, 
+            // i deixam <input id="lletra" en blanc.
+            document.getElementById("lletra").value = "";
+            // window.alert(lletra);
+            
+            // Convertim les majúsculues a minúscules
+            lletra = lletra.toLowerCase();
+
+            // Eliminam els accents o dièresis de les vocals
+            switch (lletra) {
+                case "á":
+                case "à":
+                    lletra = "a";
+                    break;
+                case "é":
+                case "è":
+                    lletra = "e";
+                    break;
+                case "í":
+                case "ï":
+                    lletra = "i";
+                    break;
+                case "ó":
+                case "ò":
+                    lletra = "o";
+                    break;
+                case "ú":
+                case "ü":
+                    lletra = "u";
+                    break;
+                default:
+                    //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
+                    break;
+            }
+                
+            /* 
+             * L'abecedari català + castellà es composa 
+             * de les vint-i-vuit lletres següents: 
+             * a, b, c, ç, d, e, f, g, h, i, j, k, l, m, (Has encertat!)
+             * n, ñ, o, p, q, r, s, t, u, v, w, x, y, z. (Has fallat!)
+             */
+            if (((lletra >= "a") && (lletra <= "m")) || (lletra == "ç")) {
+                window.alert("Has encertat!");
+                
+                // Afegim lletra a Paraula i actualitzam la pantalla.
+                Paraula = Paraula + lletra + " ";
+                document.getElementById("Paraula").innerHTML = Paraula;
+            } else if (((lletra >= "n") && (lletra <= "z")) || (lletra == "ñ")) {
+                window.alert("Has fallat!");
+                
+                // Afegim lletra a Lletres i actualitzam la pantalla.
+                Lletres = Lletres + lletra + " ";
+                document.getElementById("Lletres").innerHTML = Lletres;
+
+                // Decrementam el comptador Vides.    
+                Vides = Vides - 1;
+                // window.alert(Vides);
+            } else {
+                window.alert("Caràcter incorrecte!");
+            }
+            
+            // Actualitzam Vides a la pantalla.
+            document.getElementById("Vides").innerHTML = 
+                    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Vides;
+            
+            // Comprovam si has perdut! o has guanyat!.
+            if (Vides <= 0) {
+                window.alert("i has perdut!");
+                AturaTot();
+            } else {
+                if (Paraula.length >= 14) {
+                    window.alert("i has guanyat!");
+                    AturaTot();
+                }
+            }
+        }
+ 
+        // Deshabilitam tant <input id="lletra" com <button id="Comprovar".
+        function AturaTot() {
+            document.getElementById("lletra").disabled = true;
+            document.getElementById("Comprovar").disabled = true;
+            
+
+        //
+        }
+        // Canviam els diferents literals de la GUI segons l'idioma
+    function CanviarIdioma(IdIdioma) {
+
+        AlaWeb_SQLite(IdIdioma);
+        Idioma = Idiomes.find(Idioma => Idioma.IdIdioma == IdIdioma);
+       
+       /*
+        document.title = Idioma.Titol;
+        /*
+         
+         */
+        document.getElementById("Versio").innerHTML = Idioma.Versio;
+        document.getElementById("lletra").placeholder = Idioma.Input;
+        document.getElementById("comprovar").innerHTML = Idioma.Comprovar;
+        document.getElementById("Paraula").innerHTML = Idioma.Paraula;
+        /*
+        document.getElementById("Sopes").innerHTML = Idioma.Sopes;
+        document.getElementById("pista").innerHTML = Idioma.Pista;        
+        document.getElementById("Vides").innerHTML = Idioma.Vides;
+        document.getElementById("Moix").innerHTML = Idioma.Moix;
+        document.getElementById("Lletres").innerHTML = Idioma.Lletres;
+       */
+
+        // Escull una nova paraula aleatòriament
+        window.alert("Nova paraula aleatòria / Nueva palabra aleatoria / New random word!");
+        // window.alert("[" + paraula + "]=[" + pista + "]");
+   }
+       // Funció per carregar la base de dades penjat.db
+    function AlaWeb_SQLite(IdIdioma) {
+        window.alert("AlaWeb_SQLite IdIdioma = '" + IdIdioma + "'");
+        config = {
+            locateFile: filename => `/dist/${filename}`
+        };
+
+        // Recuperam de la base de dades els TextosGUI per tots els Idiomes
+        alasql('ATTACH SQLITE DATABASE penjat("db/penjat.db"); USE penjat; \n\
+                SELECT * FROM TblTextosGUI;',
+        //    [], function(idiomes) {Print_Data(Idiomes = idiomes.pop());}
+            [], function(idiomes) {SQL_TblTextosGUI(IdIdioma, idiomes.pop());}
+        );
+    }
+
+    // Print data  
+    function Print_Data(res) {
+        for (var i in res)
+        {
+           // console.log("row " + i);
+           // document.getElementById("res").innerHTML += "<br>";
+           for (var j in res[i])
+             {
+              // console.log(" " + res[i][j]);
+              // document.getElementById("res").innerHTML += res[i][j] + ", ";
+              window.alert("res[" + i + "][" +j + "] = " + res[i][j]);
+             }
+        }
+    }
+    function SQL_TblTextosGUI(IdIdioma, idioma1) {}
+    </script>
+    </head>
+    <body onload="AlaWeb_SQLite('ca')">
+        <h1>Prototip Joc del Penjat</h1>
+            <input id="lletra" type="text" 
+                   placeholder="Escriu una lletra minúscula" maxlength="1"> 
+            <button id="Comprovar" onclick="Comprovar();">Comprovar</button>
+        <h2 id="Paraula">Paraula</h2>
+            <div>_ _ _ _ _ _ _</div>
+        <h2 id="Vides">Vides</h2>
+            <div><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_</strong></div>
+        <h2 id="Lletres">Lletres</h2>
+            <div>_ _ _ _ _ _ _</div>
+        <br>
+        <p><strong>Crèdits: 
+            <a href="https://prosselloe.wordpress.com/?p=5862" target="_blank">El joc del penjat on Scratch</a>
+        </strong></p>
+        <div>
+        <button id="ca" style="height: 20px; width: 28px"            onclick="CanviarIdioma('ca')">
+                <img src="img/ca.png" alt="tra_ca" title="en Català">
+</button>
+<button id="es" style="height: 20px; width: 28px"     onclick="CanviarIdioma('es')">
+                <img src="img/es.png" alt="tra_es" title="en Español"></button>
+<button id="en" style="height: 20px; width: 28px"     onclick="CanviarIdioma('en')">
+    <img id="gb" src="img/gb.png" alt="tra_en" title="in English"></button>
+
+    
+        <img src="img/ahorcado_0.png" id="ahorcado_0"
+             width="280" height="270"
+             onmouseover="ahorcado_0();"/>
+        <img src="img/ahorcado_1.png" id="ahorcado_1"
+             width="280" height="270"
+             onmouseover="ahorcado_1();"/>
+        <img src="img/ahorcado_2.png" id="ahorcado_2"
+             width="280" height="270"
+             onmouseover="ahorcado_2();"/>
+        <img src="img/ahorcado_3.png" id="ahorcado_3"
+             width="280" height="270"
+             onmouseover="ahorcado_3();"/>
+        <img src="img/ahorcado_4.png" id="ahorcado_4"
+             width="280" height="270"
+             onmouseover="ahorcado_4();"/>
+        <img src="img/ahorcado_5.png" id="ahorcado_5"
+             width="280" height="270"
+             onmouseover="ahorcado_5();"/>
+        <img src="img/ahorcado_6.png" id="ahorcado_6"
+             width="280" height="270"
+             onmouseover="ahorcado_6();"/>
+        
+     </div>   
+    </body>
+</html>

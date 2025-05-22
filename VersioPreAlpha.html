@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>PROTOTIP JOC DEL PENJAT</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+        //variables globals
+        var paraula="";
+        var vides=7;
+        var letras="";
+    function Comprovar(){
+               lletra=document.getElementById("lletra").value;
+               //convertim mayuscules a minusucles
+               letra = letra.toLowerCase ();
+               //llevar los acentos y dieresis
+               switch(letra) {
+                 case "à":
+                 case "á":
+                 letra="a";
+                  break;
+                       case"é":
+                       case"è":
+                       letra="e";
+                       Break;
+               }
+        </script>    
+    </head>
+    <body>
+    <h1>JOC DEL PENJAT</h1>
+    <input type="text" id="lletra">
+    <button onclick="Comprovar();">Comprovar</button>
+    <h2>Paraula</h2>
+        
+        <br>
+        <br> 
+        <br>
+          <h2>Vides</h2>
+        <br>
+        <br> 
+        <br>
+          <h2>Lletres</h2>
+          <div></div>
+    </body>
+</html>
